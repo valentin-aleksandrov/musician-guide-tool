@@ -1,3 +1,3 @@
 # musician-guide-tool
 
-Musician guide tool is an application for people who whish to learn a musical instrument.
+Musician guide tool is an application for people who wish to learn a musical instrument.
