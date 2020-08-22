@@ -1,3 +1,13 @@
+const Notes = function (selector, tuner) {
+  this.tuner = tuner;
+  this.isAutoMode = true;
+  // this.$root = document.querySelector(selector);
+  // this.$notesList = this.$root.querySelector(".notes-list");
+  // this.$frequency = this.$root.querySelector(".frequency");
+  this.$notes = [];
+  this.$notesMap = {};
+  // this.createNotes();
+};
 const Application = function () {
   this.tuner = new Tuner();
   this.notes = new Notes(".notes", this.tuner);
@@ -11,10 +21,10 @@ Application.prototype.start = function () {
   this.tuner.onNoteDetected = function (note) {
     if (self.notes.isAutoMode) {
       if (self.lastNote === note.name) {
-        console.warn("In IF statement note", note);
+        console.log("------>", note);
         self.update(note);
       } else {
-        console.warn("ELSE statement note", note);
+        // console.warn("ELSE statement note", note);
         self.lastNote = note.name;
       }
     }
@@ -37,13 +47,13 @@ Application.prototype.updateFrequencyBars = function () {
 };
 
 Application.prototype.update = function (note) {
-  this.notes.update(note);
+  // this.notes.update(note);
   this.meter.update((note.cents / 50) * 45);
 };
 
 // noinspection JSUnusedGlobalSymbols
 Application.prototype.toggleAutoMode = function () {
-  this.notes.toggleAutoMode();
+  // this.notes.toggleAutoMode();
 };
 
 const app = new Application();
