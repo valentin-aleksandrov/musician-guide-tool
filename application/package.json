@@ -1,0 +1,12 @@
+{
+  "name": "application",
+  "version": "1.0.0",
+  "description": "start the server:\r http-server .",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ."
+  },
+  "author": "Valentin Aleksandrov",
+  "license": "ISC"
+}

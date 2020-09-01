@@ -1,4 +1,5 @@
 var express = require('express');
+const cors = require('cors');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -16,6 +17,7 @@ const port = process.env.PORT || 3000; // The port of the api
 
 // Bodyparser for using json data
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(publicPath));
 

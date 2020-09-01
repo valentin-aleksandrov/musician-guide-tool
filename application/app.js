@@ -38,23 +38,7 @@ function throttle(callback, limit) {
 }
 
 let currentNoteIndex = 0;
-let song = [
-  { name: "E" },
-  { name: "E" },
-  { name: "F" },
-  { name: "G" },
-  { name: "G" },
-  { name: "F" },
-  { name: "E" },
-  { name: "D" },
-  { name: "C" },
-  { name: "C" },
-  { name: "D" },
-  { name: "E" },
-  { name: "E" },
-  { name: "D" },
-  { name: "D" },
-];
+let song = [];
 
 const Application = function () {
   this.tuner = new Tuner();
@@ -127,4 +111,6 @@ Application.prototype.start = function () {
 };
 
 const app = new Application();
+const songFromStorage = localStorage.getItem('song') 
+song = songFromStorage.replace(/"/g,'').split(',').map(note => ({ name: note }));
 app.start();

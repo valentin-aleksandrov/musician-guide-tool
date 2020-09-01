@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=no"
+    />
+    <title>Музикално обучение</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="" />
+  </head>
+  <body>
+	  <h1>
+		  Изберете песен и натиснете продължи	
+	  </h1>
+          <div class="song-select-menu-container">
+              <select name="songs" class="song-select-menu"></select>
+          </div>
+          <button onClick="handleButtonClick()">продължи</button>
+          <script>
+            const getDropDownElement = () => document.getElementsByClassName('song-select-menu')[0];
+            function handleButtonClick() {
+                const dropDown = getDropDownElement();
+                localStorage.setItem('song', JSON.stringify(dropDown.value))
+                window.location = 'http://localhost:8080/learnSong.html'
+            }
+            const url = 'http://localhost:3000/song'
+            const handleResponse = (songs) => {
+                const dropDown = getDropDownElement();
+                for(let i = 0; i < songs.length; i++) {
+                    const option = document.createElement('option')
+                    option.text = songs[i].name;
+                    option.value = songs[i].value;
+                    dropDown.add(option)
+                }
+            }    
+            fetch(url)
+                .then(res => res.json())
+                .then(handleResponse)
+                .catch(err => console.error('api error', err));
+
+          </script>
+  </body>
+</html>
