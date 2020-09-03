@@ -1,0 +1,78 @@
+const Notes = function (selector, tuner) {
+  this.tuner = tuner;
+  this.isAutoMode = true;
+  this.$notes = [];
+  this.$notesMap = {};
+};
+
+function throttle(callback, limit) {
+  var waiting = false; // Initially, we're not waiting
+  return function () {
+    // We return a throttled function
+    if (!waiting) {
+      // If we're not waiting
+      callback.apply(this, arguments); // Execute users function
+      waiting = true; // Prevent future invocations
+      setTimeout(function () {
+        // After a period of time
+        waiting = false; // And allow future invocations
+      }, limit);
+    }
+  };
+}
+
+const notesLimit = 30;
+let currentNoteIndex = 0;
+let song = [];
+let sendMusic = false;
+
+const Application = function () {
+  this.tuner = new Tuner();
+  this.notes = new Notes(".notes", this.tuner);
+};
+Application.prototype.start = function () {
+  const self = this;
+
+  const callBack = throttle(function onNoteDetected(note) {
+    if(sendMusic) {
+        return
+    }
+    if (self.notes.isAutoMode) {
+      if (self.lastNote === note.name) {
+          song[currentNoteIndex++] = note.name;
+          if(currentNoteIndex > notesLimit) {
+              sendMusic = true;
+              fetch('http://localhost:3000/song', {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                //mode: 'cors', // no-cors, *cors, same-origin
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ song: song.join(',') }) 
+              })
+                  .then(res => res.json())
+                  .then(res => {
+                      const [ resultElement ] = document.getElementsByClassName('found-song');
+                      const resultText = document.createTextNode(`${res.title} композирана от author`);
+                      const header = document.createElement('h1');
+                      const notFound = document.createTextNode('НЕоктрита песен');
+                      header.appendChild(res.found ? resultText : notFound);
+                      resultElement.appendChild(header);
+                  });
+          }
+     } else {
+       self.lastNote = note.name;
+     }
+    }
+  }, 250);
+
+  this.tuner.onNoteDetected = callBack;
+
+
+  swal("Натиснете Продължи за да започнете обучението...").then(function () {
+    self.tuner.init();
+  });
+};
+
+const app = new Application();
+app.start();

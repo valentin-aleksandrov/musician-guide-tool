@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 
 /* Getting all the db querys */
 const {saveUser,findUser, UpdateToken} = require('./models/user');
-const { getAllSongs } = require('./models/song');
+const { getAllSongs, findSongByNotes } = require('./models/song');
 /* This middle ware checks if the token given by the user is right */
 const {authenticate} = require('./middleware/authenticate');
 
@@ -31,6 +31,10 @@ app.get('/', function(req, res, next) {
 app.get('/data', function(req, res, next) {
    res.send(['foo', 'bar']);
 });
+
+app.post('/song', (req, res) => {
+    findSongByNotes(req.body.song).then( data => res.send(data));
+})
 
 
 app.get('/song', function(req, res, next) {
