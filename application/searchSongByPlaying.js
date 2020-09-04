@@ -69,7 +69,7 @@ Application.prototype.start = function () {
   this.tuner.onNoteDetected = callBack;
 
 
-  swal("Натиснете Продължи за да започнете обучението...").then(function () {
+  swal("Натиснете Продължи за да започнете търсенето на песен...").then(function () {
     self.tuner.init();
   });
 };

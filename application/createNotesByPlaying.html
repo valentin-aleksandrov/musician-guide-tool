@@ -7,14 +7,41 @@
       content="width=device-width,initial-scale=1,user-scalable=no"
     />
     <title>Музикално обучение</title>
-    <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="" />
+    <style>
+        .vexbox {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 150px;
+        }
+        #abc {
+            visibility: hidden;
+            height: 20px;
+        }
+    </style>
   </head>
   <body>
-    <div class="next-note-container"></div>
+    <div class="vexbox-disable-class">
+      <div id="boo"></div>
+    </div>
+    <textarea name="abc" autofocus id="abc" cols="80" rows="15">
+    </textarea>
+    <div id="warnings"></div>
+    <div id="paper"></div>
+    <script src="https://unpkg.com/vexflow@3.0.9/releases/vexflow-min.js"></script>
+    <script src="https://www.abcjs.net/abcjs_basic_5.9.1-min.js" type="text/javascript"></script>
     <script src="sweetalert.min.js"></script>
     <script src="aubio.js"></script>
     <script src="tuner.js"></script>
-    <script src="app.js"></script>
+    <script src="createNotesByPlaying.js"></script>
+   <script>
+
+    
+
+
+        
+   </script>
   </body>
 </html>
