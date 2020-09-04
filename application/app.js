@@ -1,3 +1,4 @@
+const normalizeNote = (note) => (note.length > 1) ? note[0] + 'sharp' : note;
 const Notes = function (selector, tuner) {
   this.tuner = tuner;
   this.isAutoMode = true;
@@ -49,23 +50,31 @@ Application.prototype.start = function () {
   document.getElementsByClassName(
     "next-note-container"
   )[0].innerHTML = `Следваща нота: ${song[0].name}`;
+    const noteUrl = normalizeNote(song[0].name) + '.png';
+  document.getElementById('next-note-to-play').src= noteUrl;
 
   const callBack = throttle(function onNoteDetected(note) {
     if (self.notes.isAutoMode) {
+    
+    const currentNoteFromTheSong = song[currentNoteIndex]
+              ? song[currentNoteIndex].name
+              : undefined;
       if (self.lastNote === note.name) {
-        const currentNoteFromTheSong = song[currentNoteIndex]
-          ? song[currentNoteIndex].name
-          : undefined;
-        // console.log("note --> ", currentNoteFromTheSong, currentNoteIndex);
-
         if (note.name === currentNoteFromTheSong) {
           currentNoteIndex++;
+          
+            
+
           const nextNote = song[currentNoteIndex]
             ? song[currentNoteIndex].name
             : undefined;
           const nextNoteDomElement = document.getElementsByClassName(
             "next-note-container"
           )[0];
+
+            document
+                .getElementById('next-note-to-play')
+                .src = normalizeNote(nextNote || '') + '.png';
 
           nextNoteDomElement.classList.add("on-success");
           nextNoteDomElement.innerHTML =
