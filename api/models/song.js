@@ -45,11 +45,11 @@ const areSongsEquals = (inputSong, song) => {
 }
 
 
-const findSongByNotes = ( notes ) => {
+const findSongByNotes = async ( notes ) => {
     const notesAsArray = notes.split(',');
     let uniqSequnce = getUniqSequence(notesAsArray);
 
-    return new Promise((resolve, reject) => {
+    const result = new Promise((resolve, reject) => {
         db.query('SELECT * from song', function (error, results, fields) {
         if (error){
             reject();
@@ -60,14 +60,39 @@ const findSongByNotes = ( notes ) => {
                 const songWithUniqNotes = getUniqSequence(songAsArray);
                 const areEquals = areSongsEquals(uniqSequnce, songWithUniqNotes.join(','));
                 if(areEquals) {
-                    resolve({ found: true, title: currentFoundSong.name });
+
+                    resolve({ found: true, foundSong: currentFoundSong });
                     break;
                 }
             }
-            resolve({ found: false, title: '', });
+            resolve({ found: false });
         }
     });
     });
+    const data = await result;
+    if(data.found) {
+        return new Promise((resolve, reject) => {
+        db.query('SELECT * from composer', function (error, results, fields) {
+        if (error){
+            reject();
+        } else{
+            for(let i = 0; i < results.length; i++) {
+                const currentComposer = results[i];
+                if(currentComposer.ID === data.foundSong.composerID){
+                    resolve({ 
+                        found: true, 
+                        songTitle: data.foundSong.name, 
+                        songComposer: currentComposer.name,
+                        songImage: currentComposer.image,
+                    });
+                }
+            }
+            resolve({ found: false });
+        }
+    });
+    });
+    }
+    return result;
 }
 
 module.exports = {

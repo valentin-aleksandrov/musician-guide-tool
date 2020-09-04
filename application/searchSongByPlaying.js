@@ -53,10 +53,17 @@ Application.prototype.start = function () {
                   .then(res => res.json())
                   .then(res => {
                       const [ resultElement ] = document.getElementsByClassName('found-song');
-                      const resultText = document.createTextNode(`${res.title} композирана от author`);
+                      const resultText = document.createTextNode(`${res.songTitle} композирана от ${res.songComposer}`);
                       const header = document.createElement('h1');
                       const notFound = document.createTextNode('НЕоктрита песен');
-                      header.appendChild(res.found ? resultText : notFound);
+                      if(res.found) {
+                        header.appendChild(resultText);
+                        const imageElement = document.getElementById('found-image');
+                          imageElement.style.visibility = 'visible';
+                        imageElement.src = res.songImage;
+                      } else {
+                        header.appendChild(notFound);
+                      }
                       resultElement.appendChild(header);
                   });
           }
