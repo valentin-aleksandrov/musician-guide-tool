@@ -7,17 +7,61 @@
       content="width=device-width,initial-scale=1,user-scalable=no"
     />
     <title>Музикално обучение</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css.map" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap-theme.min.css" />
     <link rel="shortcut icon" href="" />
+    <style>
+        body {
+            background-image: url("images/blur-background-1.jpg");
+        }
+        .container {
+            margin-top: 10%;
+        }
+        .btn {
+            font-size: 20px;
+        }
+        .form-control {
+            font-size: 20px;
+        }
+        .menu {
+            margin-top: 5%;
+            text-align: center;
+            margin-left: 27%;
+        }
+        h1 {
+            text-align: center;
+        }
+        .song-select-monu-container {
+        }
+    </style>
   </head>
   <body>
-	  <h1>
-		  Изберете песен и натиснете продължи	
-	  </h1>
-          <div class="song-select-menu-container">
-              <select name="songs" class="song-select-menu"></select>
+<div class="container">
+          <div class="row align-items-center">
+              <div class="col">
+                 <h1>
+                          Изберете песен и натиснете продължи	
+                  </h1>
+              </div>
           </div>
-          <button onClick="handleButtonClick()">продължи</button>
+          <div class="row  menu">
+              <div class="offset-sm-5 col-sm-4 ml-auto song-select-menu-container">
+                  <select name="songs" class="song-select-menu form-control"></select>
+              </div>
+              <div class="col-sm-3">
+                  <button class="btn btn-primary" onClick="handleButtonClick()">продължи</button>
+              </div>
+          </div>
+      </div>
+
+
+
+
+	  
+          
+    <script src="/bootstrap-3.4.1-dist/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
           <script>
             const getDropDownElement = () => document.getElementsByClassName('song-select-menu')[0];
             function handleButtonClick() {
