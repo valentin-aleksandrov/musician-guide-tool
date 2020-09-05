@@ -7,12 +7,39 @@
       content="width=device-width,initial-scale=1,user-scalable=no"
     />
     <title>Музикално обучение</title>
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css.map" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="" />
   </head>
   <body>
-    <div class="next-note-container"></div>
-    <img id="next-note-to-play">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+              <p class="instrument-name">Китара</p>
+            <img height="240px" width="1246px" id="guitar-next-note">
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-4">
+              <img  id="next-note-to-play">
+              <p class="instrument-name">Пиано</p>
+          </div>
+          <div class="col-sm-4">
+              <div class="next-note-container font-weight-bold"></div>
+          </div>
+          <div class="col-sm-4">
+              <img  id="flute-next-note" height="500px" src="images/flute-notes/A.png">
+        </div>
+      </div>
+
+      <div class="row">
+        
+      </div>
+    </div>
+    <script src="/bootstrap-3.4.1-dist/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <script src="sweetalert.min.js"></script>
     <script src="aubio.js"></script>
     <script src="tuner.js"></script>

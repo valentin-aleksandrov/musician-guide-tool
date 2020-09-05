@@ -52,6 +52,8 @@ Application.prototype.start = function () {
   )[0].innerHTML = `Следваща нота: ${song[0].name}`;
     const noteUrl = normalizeNote(song[0].name) + '.png';
   document.getElementById('next-note-to-play').src= noteUrl;
+  document.getElementById('guitar-next-note').src= '/images/guitar-notes/' + noteUrl;
+  document.getElementById('flute-next-note').src= '/images/flute-notes/' + noteUrl;
 
   const callBack = throttle(function onNoteDetected(note) {
     if (self.notes.isAutoMode) {
@@ -72,9 +74,19 @@ Application.prototype.start = function () {
             "next-note-container"
           )[0];
 
-            document
-                .getElementById('next-note-to-play')
-                .src = normalizeNote(nextNote || '') + '.png';
+            if(nextNote){
+                document
+                    .getElementById('next-note-to-play')
+                    .src = normalizeNote(nextNote || '') + '.png';
+
+                document
+                    .getElementById('guitar-next-note')
+                    .src= '/images/guitar-notes/' + normalizeNote(nextNote || '') + '.png';
+
+                document
+                    .getElementById('flute-next-note')
+                    .src= '/images/flute-notes/' + normalizeNote(nextNote || '') + '.png';
+            }
 
           nextNoteDomElement.classList.add("on-success");
           nextNoteDomElement.innerHTML =
