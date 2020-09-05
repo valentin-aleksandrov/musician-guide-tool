@@ -60,9 +60,11 @@ Application.prototype.start = function () {
                         header.appendChild(resultText);
                         const imageElement = document.getElementById('found-image');
                           imageElement.style.visibility = 'visible';
+                        document.getElementsByTagName('h2')[0].classList.add('hide-element');
                         imageElement.src = res.songImage;
                       } else {
                         header.appendChild(notFound);
+                        document.getElementsByTagName('h2')[0].classList.add('hide-element');
                       }
                       resultElement.appendChild(header);
                   });
