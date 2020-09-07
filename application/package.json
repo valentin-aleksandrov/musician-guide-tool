@@ -10,6 +10,7 @@
   "author": "Valentin Aleksandrov",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^4.5.2"
+    "bootstrap": "^4.5.2",
+    "dom-to-image": "^2.6.0"
   }
 }

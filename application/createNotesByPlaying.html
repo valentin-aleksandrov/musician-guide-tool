@@ -8,6 +8,10 @@
     />
     <title>Музикално обучение</title>
     <link rel="shortcut icon" href="" />
+
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css.map" />
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap-theme.min.css" />
     <style>
         .vexbox {
           display: flex;
@@ -27,13 +31,30 @@
         #paper {
             margin-left: 30%;
         }
+        #download-notes {
+            visibility: hidden;
+        }
+
+        #download-notes {
+            position: fixed;
+            bottom: 90%;
+            right: 20%;
+        }
     </style>
   </head>
   <body>
     <textarea name="abc" autofocus id="abc" cols="80" rows="15">
     </textarea>
     <div id="warnings"></div>
-    <div id="paper"></div>
+    <div id="paper-wrapper">
+        <div id="paper"></div>
+    </div>
+    <button id="download-notes" class="btn btn-danger" onclick="downloadNotes()">
+        Свали нотите
+    </button>
+    <script src="/bootstrap-3.4.1-dist/js/jquery.min.js"></script>
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="domToImage.js"></script>
     <script src="abcjs.min.js" type="text/javascript"></script>
     <script src="sweetalert.min.js"></script>
     <script src="aubio.js"></script>

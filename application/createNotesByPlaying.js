@@ -1,25 +1,33 @@
-	function selectionCallback(abcelem) {
-            alert('Hello, Valka');
-		var note = {};
-		for (var key in abcelem) {
-			if (abcelem.hasOwnProperty(key) && key !== "abselem")
-				note[key] = abcelem[key];
-		}
-		console.log(abcelem);
-		var el = document.getElementById("selection");
-		el.innerHTML = "<b>selectionCallback parameter:</b><br>" + JSON.stringify(note);
-	}
+function downloadNotes() {
+        window.domtoimage.toPng(document.getElementById('paper-wrapper'))
+            .then(function (dataUrl) {
+                var link = document.createElement('a');
+                link.download = 'my-image-name.jpeg';
+                link.href = dataUrl;
+                link.click();
+            })
+}
 
-	function initEditor() {
-		new ABCJS.Editor("abc", { paper_id: "paper",
-			generate_warnings: true,
-			warnings_id:"warnings",
-			abcjsParams: {
-				generateDownload: true,
-				clickListener: selectionCallback
-			}
-		});
-	}
+function selectionCallback(abcelem) {
+        var note = {};
+        for (var key in abcelem) {
+                if (abcelem.hasOwnProperty(key) && key !== "abselem")
+                        note[key] = abcelem[key];
+        }
+        var el = document.getElementById("selection");
+        el.innerHTML = "<b>selectionCallback parameter:</b><br>" + JSON.stringify(note);
+}
+
+function initEditor() {
+        new ABCJS.Editor("abc", { paper_id: "paper",
+                generate_warnings: true,
+                warnings_id:"warnings",
+                abcjsParams: {
+                        generateDownload: true,
+                        clickListener: selectionCallback
+                }
+        });
+}
 
 
 const Notes = function (selector, tuner) {
@@ -80,16 +88,12 @@ Application.prototype.start = function () {
     if (self.notes.isAutoMode) {
       if (self.lastNote === note.name) {
           song[currentNoteIndex++] = note.name;
-          console.log('song - >', song);
           const textArea = document.getElementById('abc');
           const textAreaOutput = normilizeNotes(song);
-          console.log('output' ,textAreaOutput);
           textArea.value = textAreaOutput;
-
           initEditor();
-
           window.scrollTo(0,document.body.scrollHeight);
-
+          document.getElementById('download-notes').style.visibility = 'visible';
 
      } else {
        self.lastNote = note.name;
